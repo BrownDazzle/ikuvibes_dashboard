@@ -13,8 +13,8 @@ const poppins = Poppins({
 })
 
 export const metadata: Metadata = {
-  title: 'MellowMusic - Dashboard',
-  description: 'MellowMusic is a platform for free music and video downloads.',
+  title: 'IkuVibes - Dashboard',
+  description: 'IkuVibes is a platform for free music and video downloads.',
   /*icons: {
     icon: '/assets/images/logo.svg'
   }*/
