@@ -15,14 +15,11 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: 'IkuVibes - Dashboard',
   description: 'IkuVibes is a platform for free music and video downloads.',
-  /*icons: {
-    icon: '/assets/images/logo.svg'
-  }*/
 }
 
 export default function RootLayout({
   children,
-  session
+  session,
 }: {
   children: React.ReactNode;
   session: Session; // Assuming you are using the Session type from next-auth
@@ -30,9 +27,11 @@ export default function RootLayout({
   return (
     <Provider session={session}>
       <ContextProvider>
-        <html lang="en">
-          <body className={poppins.variable}>{children}</body>
-        </html>
+        <>
+          <html lang="en">
+            <body className={poppins.variable}>{children}</body>
+          </html>
+        </>
       </ContextProvider>
     </Provider>
   )
