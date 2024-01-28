@@ -4,6 +4,7 @@ import { Poppins } from 'next/font/google'
 import './globals.css'
 import { ContextProvider } from '@/contexts/ContextProvider'
 import Provider from '@/lib/providers/session-provider'
+import { NextAuthSession } from '@/types/index'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -23,7 +24,7 @@ export default function RootLayout({
   children,
   session
 }: {
-  children: React.ReactNode; session: any
+  children: React.ReactNode; session: NextAuthSession
 }) {
   return (
     <Provider session={session}>

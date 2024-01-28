@@ -10,6 +10,18 @@ declare module "next-auth" {
   }
 }
 
+// Example session type for next-auth
+export interface NextAuthSession {
+  user: {
+    name: string;
+    email: string;
+    id: string;
+    // other user properties
+  };
+  accessToken: string;
+  expires: string;
+  // other session properties
+}
 
 
 export type CreateUserParams = {
