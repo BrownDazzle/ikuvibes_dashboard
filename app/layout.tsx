@@ -1,4 +1,3 @@
-import type { Metadata } from 'next'
 import { Poppins } from 'next/font/google'
 
 import './globals.css'
@@ -12,18 +11,12 @@ const poppins = Poppins({
   variable: '--font-poppins',
 })
 
-export const metadata: Metadata = {
+export const metadata = {
   title: 'IkuVibes - Dashboard',
   description: 'IkuVibes is a platform for free music and video downloads.',
 }
 
-export default function RootLayout({
-  children,
-  session,
-}: {
-  children: React.ReactNode;
-  session: Session; // Assuming you are using the Session type from next-auth
-}) {
+export default function RootLayout({ children, session }: { children: React.ReactNode; session: Session }) {
   return (
     <Provider session={session}>
       <ContextProvider>
