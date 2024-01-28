@@ -20,15 +20,13 @@ export const metadata: Metadata = {
   }*/
 }
 
-interface Props {
-  children: React.ReactNode;
-  session: Session; // Assuming you are using the Session type from next-auth
-}
-
 export default function RootLayout({
   children,
   session
-}: Props) {
+}: {
+  children: React.ReactNode;
+  session: Session; // Assuming you are using the Session type from next-auth
+}) {
   return (
     <Provider session={session}>
       <ContextProvider>
