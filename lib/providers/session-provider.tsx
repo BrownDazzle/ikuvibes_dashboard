@@ -2,11 +2,10 @@
 
 import { SessionProvider } from "next-auth/react";
 import React, { ReactNode } from "react";
-import { Session } from "next-auth";
 
 interface Props {
     children: ReactNode;
-    session: Session; // Assuming you are using the Session type from next-auth
+    session: any; // Assuming you are using the Session type from next-auth
 }
 
 const Provider = (props: Props) => {
