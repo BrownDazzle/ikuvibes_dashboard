@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { Poppins } from 'next/font/google'
 
 import './globals.css'
@@ -17,7 +17,7 @@ export const metadata = {
   description: 'IkuVibes is a platform for free music and video downloads.',
 }
 
-export default function RootLayout({ children, session }: { children: React.ReactNode; session: Session }) {
+export default function RootLayout({ children, session }: { children: ReactNode; session: Session }) {
   return (
     <Provider session={session}>
       <ContextProvider>
