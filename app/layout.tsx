@@ -17,12 +17,7 @@ export const metadata = {
   description: 'IkuVibes is a platform for free music and video downloads.',
 }
 
-interface LayoutProps {
-  children: ReactNode;
-  session: Session;
-};
-
-const Layout: React.FC<LayoutProps> = ({ children, session }) => {
+const Layout = ({ children, session }: { children: React.ReactNode; session: Session }) => {
   return (
     <html lang="en">
       <body className={poppins.variable}>
