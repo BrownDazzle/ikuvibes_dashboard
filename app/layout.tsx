@@ -17,23 +17,23 @@ export const metadata = {
   description: 'IkuVibes is a platform for free music and video downloads.',
 }
 
-type LayoutProps = {
+interface LayoutProps {
   children: ReactNode;
   session: Session;
 };
 
-const RootLayout: React.FC<LayoutProps> = ({ children, session }) => {
+const Layout: React.FC<LayoutProps> = ({ children, session }) => {
   return (
-    <Provider session={session}>
-      <ContextProvider>
-        <>
-          <html lang="en">
-            <body className={poppins.variable}>{children}</body>
-          </html>
-        </>
-      </ContextProvider>
-    </Provider>
+    <html lang="en">
+      <body className={poppins.variable}>
+        <Provider session={session}>
+          <ContextProvider>
+            {children}
+          </ContextProvider>
+        </Provider>
+      </body>
+    </html>
   )
 }
 
-export default RootLayout
+export default Layout
