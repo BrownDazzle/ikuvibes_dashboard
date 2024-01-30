@@ -127,7 +127,6 @@ export type GetEventsByUserParams = {
 
 export type GetRelatedEventsByCategoryParams = {
   categoryId: string
-  genre: string
   eventId: string
   limit?: number
   page: number | string

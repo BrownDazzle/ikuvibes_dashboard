@@ -6,7 +6,7 @@ import React, { ReactNode } from "react";
 
 interface Props {
     children: ReactNode;
-    session: Session; // Assuming you are using the Session type from next-auth
+    session: never; // Assuming you are using the Session type from next-auth
 }
 
 const Provider = (props: Props) => {
