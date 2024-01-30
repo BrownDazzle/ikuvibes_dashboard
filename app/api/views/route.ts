@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
 
 import { increaseEventViews } from '@/lib/actions/event.actions';
+import Event from '@/lib/database/models/event.model';
+import { connectToDatabase } from '@/lib/database';
+import { ObjectId } from 'mongodb';
 
 const corsHeaders = {
     "Access-Control-Allow-Origin": "*",
@@ -21,8 +24,10 @@ export async function GET(
             return new NextResponse("Id is required", { status: 400 });
         }
 
+        await connectToDatabase();
 
-        const data = await increaseEventViews(params.id);
+        // Increment the views field in the database
+        const data = await Event.findByIdAndUpdate(new ObjectId(params.id), { $inc: { views: 1 } });
 
         return NextResponse.json(data, {
             headers: corsHeaders

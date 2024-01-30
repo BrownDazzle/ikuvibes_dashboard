@@ -17,7 +17,12 @@ export const metadata = {
   description: 'IkuVibes is a platform for free music and video downloads.',
 }
 
-export default function RootLayout({ children, session }: { children: ReactNode; session: Session }) {
+type LayoutProps = {
+  children: ReactNode;
+  session: Session;
+};
+
+const RootLayout: React.FC<LayoutProps> = ({ children, session }) => {
   return (
     <Provider session={session}>
       <ContextProvider>
@@ -30,3 +35,5 @@ export default function RootLayout({ children, session }: { children: ReactNode;
     </Provider>
   )
 }
+
+export default RootLayout

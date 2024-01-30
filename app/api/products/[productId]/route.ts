@@ -37,11 +37,10 @@ export async function GET(
     }
 
     await connectToDatabase()
-
-    const product = await populateEvent(Event.findById(params.id));
-    // Find the event by ID and increment the views
     await increaseEventViews(params.id)
-
+    const product = await populateEvent(Event.findByIdAndUpdate(params.id, { $inc: { views: 1 } }, { new: true }));
+    // Find the event by ID and increment the views
+    console.log("EVE__IT", product)
 
     if (!product) throw new Error('File not found')
 
