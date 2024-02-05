@@ -94,18 +94,6 @@ export async function updateEvent({ userId, event, path }: UpdateEventParams) {
     }
 }
 
-// DELETE
-export async function deleteEvent({ eventId, path }: DeleteEventParams) {
-    try {
-        await connectToDatabase()
-
-        const deletedEvent = await Video.findByIdAndDelete(eventId)
-        if (deletedEvent) revalidatePath(path)
-    } catch (error) {
-        handleError(error)
-    }
-}
-
 // GET ALL EVENTS
 export async function getAllEvents({ query, limit = 6, page, category, genre }: GetAllEventsParams) {
     try {

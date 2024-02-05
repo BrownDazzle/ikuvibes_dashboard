@@ -1,6 +1,6 @@
 "use server"
 
-import { CreateGenreParams } from "@/types"
+import { CreateGenreParams } from "@/types/index"
 import { handleError } from "../utils"
 import { connectToDatabase } from "../database"
 import Genre from "../database/models/genre.model"
