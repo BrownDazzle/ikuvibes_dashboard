@@ -25,7 +25,7 @@ interface IndexComponentProps {
     orders: IOrder
 }
 
-const IndexComponent: React.FC<IndexComponentProps> = ({ searchParams, orders }) => {
+const IndexComponent: React.FC<IndexComponentProps> = () => {
     const { setCurrentColor, setCurrentMode, currentMode, activeMenu, currentColor, themeSettings, setThemeSettings } = useStateContext();
     const analyticsData = [30, 50, 20, 80, 45];
     const analyticsLabels = ['Song 1', 'Song 2', 'Song 3', 'Song 4', 'Song 5'];
