@@ -37,8 +37,8 @@ export async function GET(
     }
 
     await connectToDatabase()
-    await increaseEventViews(params.id)
-    const product = await populateEvent(Event.findByIdAndUpdate(params.id, { $inc: { views: 1 } }, { new: true }));
+    //await increaseEventViews(params.id)
+    const product = await populateEvent(Event.findById(params.id));
     // Find the event by ID and increment the views
     console.log("EVE__IT", product)
 
