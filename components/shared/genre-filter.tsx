@@ -33,13 +33,13 @@ const GenreFilter = () => {
 
         if (genre) {
             newUrl = formUrlQuery({
-                params: searchParams.toString(),
+                params: searchParams?.toString(),
                 key: 'genre',
                 value: genre
             })
         } else {
             newUrl = removeKeysFromQuery({
-                params: searchParams.toString(),
+                params: searchParams?.toString(),
                 keysToRemove: ['genre']
             })
         }

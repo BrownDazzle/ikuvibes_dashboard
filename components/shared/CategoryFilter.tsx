@@ -37,13 +37,13 @@ const CategoryFilter = ({ category }: DropdownProps) => {
 
     if (category && category !== 'All') {
       newUrl = formUrlQuery({
-        params: searchParams.toString(),
+        params: searchParams?.toString(),
         key: 'category',
         value: category
       })
     } else {
       newUrl = removeKeysFromQuery({
-        params: searchParams.toString(),
+        params: searchParams?.toString(),
         keysToRemove: ['category']
       })
     }
