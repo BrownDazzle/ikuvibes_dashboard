@@ -8,8 +8,6 @@ import { RiNotification3Line } from 'react-icons/ri';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 
 import { useStateContext } from '../../contexts/ContextProvider';
-import Image from 'next/image';
-import Upload from './Upload';
 import MobileNav from './MobileNav';
 import { useRouter } from 'next/navigation';
 import { signIn, signOut, useSession } from 'next-auth/react';
@@ -100,9 +98,6 @@ const Navbar: React.FC = () => {
         )}
         <MobileNav />
 
-
-
-        {isClicked?.cart && (<Upload />)}
         {/* {isClicked?.addProduct && (<AddProduct />)}
         {isClicked?.chat && (<Chat />)}
         {isClicked?.notification && (<Notification />)}
