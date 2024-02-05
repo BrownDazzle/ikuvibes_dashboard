@@ -58,9 +58,10 @@ export const formatPrice = (price: string) => {
 }
 
 export function formUrlQuery({ params, key, value }: UrlQueryParams) {
-  const currentUrl = qs.parse(params)
+  const currentUrl = qs.parse(params ?? ''); // Use nullish coalescing operator to handle potential 'undefined'
 
-  currentUrl[key] = value
+
+  currentUrl[key] = value!; // Use non-null assertion here
 
   return qs.stringifyUrl(
     {
@@ -72,7 +73,8 @@ export function formUrlQuery({ params, key, value }: UrlQueryParams) {
 }
 
 export function removeKeysFromQuery({ params, keysToRemove }: RemoveUrlQueryParams) {
-  const currentUrl = qs.parse(params)
+  const currentUrl = qs.parse(params ?? ''); // Use nullish coalescing operator to handle potential 'undefined'
+
 
   keysToRemove.forEach(key => {
     delete currentUrl[key]

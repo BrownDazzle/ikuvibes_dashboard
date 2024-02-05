@@ -195,13 +195,13 @@ export type GetOrdersByUserParams = {
 
 // ====== URL QUERY PARAMS
 export type UrlQueryParams = {
-  params: string
+  params?: string
   key: string
   value: string | null
 }
 
 export type RemoveUrlQueryParams = {
-  params: string
+  params?: string
   keysToRemove: string[]
 }
 
