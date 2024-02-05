@@ -1,5 +1,4 @@
 import AudioPlayer from '@/components/shared/AudioPlayer';
-import CheckoutButton from '@/components/shared/CheckoutButton';
 import Collection from '@/components/shared/Collection';
 import DownloadButton from '@/components/ui/download-button';
 import { getEventById, getRelatedEventsByCategory } from '@/lib/actions/event.actions'
