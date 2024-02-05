@@ -13,19 +13,11 @@ import { useParams } from 'next/navigation';
 import Footer from './shared/Footer';
 import { SearchParamProps } from '@/types/index';
 import CategoryFilter from './shared/CategoryFilter';
-import OrdersPage from './shared/Orders/orders';
-import { IOrder } from "@/lib/database/models/order.model";
 import VideoUploadForm from './shared/YoutubeUploader';
 import MusicForm from './shared/MusicUploader';
 
-// ...
 
-interface IndexComponentProps {
-    searchParams: SearchParamProps,
-    orders: IOrder
-}
-
-const IndexComponent: React.FC<IndexComponentProps> = () => {
+const IndexComponent = () => {
     const { setCurrentColor, setCurrentMode, currentMode, activeMenu, currentColor, themeSettings, setThemeSettings } = useStateContext();
     const analyticsData = [30, 50, 20, 80, 45];
     const analyticsLabels = ['Song 1', 'Song 2', 'Song 3', 'Song 4', 'Song 5'];
