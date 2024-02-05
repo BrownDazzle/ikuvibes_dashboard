@@ -108,7 +108,7 @@ export type UpdateEventParams = {
 
 export type DeleteEventParams = {
   eventId: string
-  path: string
+  path?: string | null
 }
 
 export type GetAllEventsParams = {
