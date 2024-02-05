@@ -8,13 +8,13 @@ import { MdOutlineCancel } from 'react-icons/md';
 import { links } from '../../constants/data';
 import { useStateContext } from '../../contexts/ContextProvider';
 import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { SearchParamProps } from '@/types';
+import { useSearchParams } from 'next/navigation';
+import { SearchParamProps } from '@/types/index';
 import { formUrlQuery, removeKeysFromQuery } from "@/lib/utils";
 
 
-const Sidebar = ({ searchParams }: SearchParamProps) => {
-    const router = useRouter();
+const Sidebar = () => {
+
     const param = useSearchParams();
 
     const { currentColor, activeMenu, setActiveMenu, screenSize } = useStateContext();
@@ -25,25 +25,6 @@ const Sidebar = ({ searchParams }: SearchParamProps) => {
         }
     };
 
-    const onSelectCategory = (category: string) => {
-        let newUrl = '';
-
-        if (category && category !== 'All') {
-            newUrl = formUrlQuery({
-                params: searchParams.toString(),
-                key: 'path',
-                value: category
-            })
-        } else {
-            newUrl = removeKeysFromQuery({
-                params: searchParams.toString(),
-                keysToRemove: ['path']
-            })
-        }
-
-        router.push(newUrl, { scroll: false });
-    }
-
     const activeLink = 'flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg text-white text-md m-2';
     const normalLink = 'flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg text-md text-gray-700 dark:text-gray-200 dark:hover:text-black hover:bg-light-gray m-2';
 
@@ -53,7 +34,7 @@ const Sidebar = ({ searchParams }: SearchParamProps) => {
                 <>
                     <div className="flex justify-between items-center">
                         <Link href="/" onClick={handleCloseSideBar} className="items-center gap-3 ml-3 mt-4 flex text-xl font-extrabold tracking-tight dark:text-white text-slate-900">
-                            <SiShopware /> <span>MellowMusic</span>
+                            <SiShopware /> <span>IkuVibes</span>
                         </Link>
                         <button
                             type="button"
@@ -71,15 +52,16 @@ const Sidebar = ({ searchParams }: SearchParamProps) => {
                                     {item.title}
                                 </p>
                                 {item.links.map((link: any) => (
-                                    <a
+                                    <Link
+                                        href={link.path}
                                         key={link.name}
-                                        onClick={() => { handleCloseSideBar(); onSelectCategory(link.name) }}
-                                        style={{ backgroundColor: searchParams.path === `${link.name}` ? currentColor : '' }}
-                                        className={searchParams.path === `${link.name}` ? activeLink : normalLink}
+                                        onClick={() => { handleCloseSideBar(); }}
+                                        style={{ backgroundColor: link.path === `${link.name}` ? currentColor : '' }}
+                                        className={link.path === `${link.name}` ? activeLink : normalLink}
                                     >
                                         {link.icon}
                                         <span className="capitalize">{link.name}</span>
-                                    </a>
+                                    </Link>
                                 ))}
                             </div>
                         ))}

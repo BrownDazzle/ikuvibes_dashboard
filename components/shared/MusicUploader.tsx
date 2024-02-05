@@ -30,24 +30,10 @@ import { VideoUploader } from "./VideoUploader"
 import { AudioUploader } from "./AudioUploader"
 
 
-type EventFormProps = {
-    userId: string
-    type: "Create" | "Update"
-    event?: IEvent,
-    eventId?: string
-}
-
-const MusicForm = ({ userId, type, event, eventId }: EventFormProps) => {
+const MusicForm = () => {
     const [files, setFiles] = useState<File[]>([])
     const [audioFiles, setAudioFiles] = useState<File[]>([])
 
-    const initialValues = event && type === 'Update'
-        ? {
-            ...event,
-            genre: event.genre.name,
-            createdAt: new Date(event.createdAt),
-        }
-        : eventDefaultValues;
     const router = useRouter();
 
     //const { startUpload } = useUploadThing('mediaPost')
@@ -56,7 +42,6 @@ const MusicForm = ({ userId, type, event, eventId }: EventFormProps) => {
 
     const form = useForm<z.infer<typeof eventFormSchema>>({
         resolver: zodResolver(eventFormSchema),
-        defaultValues: initialValues
     })
 
 
@@ -97,28 +82,6 @@ const MusicForm = ({ userId, type, event, eventId }: EventFormProps) => {
             }
         } catch (error) {
             console.log(error);
-        }
-
-        if (type === 'Update') {
-            if (!eventId) {
-                router.back()
-                return;
-            }
-
-            try {
-                const updatedEvent = await updateEvent({
-                    userId,
-                    event: { ...values, imageUrl: uploadedImageUrl, audioUrl: uploadedAudioUrl, _id: eventId },
-                    path: `/events/${eventId}`
-                })
-
-                if (updatedEvent) {
-                    form.reset();
-                    router.push(`/`)
-                }
-            } catch (error) {
-                console.log(error);
-            }
         }
     }
 

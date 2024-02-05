@@ -34,25 +34,11 @@ import uploadVideoToYouTube from "@/lib/actions/youtube.api"
 import { useSession } from "next-auth/react"
 
 
-type YoutubeFormProps = {
-    userId: string
-    type: "Create" | "Update"
-    event?: IVideo,
-    eventId?: string
-}
-
-const YoutubeForm = ({ userId, type, event, eventId }: YoutubeFormProps) => {
+const YoutubeForm = () => {
     const { data: session } = useSession()
     const [files, setFiles] = useState<File[]>([])
     const [videoFiles, setVideoFiles] = useState<File[]>([])
 
-    const initialValues = event && type === 'Update'
-        ? {
-            ...event,
-            genre: event.genre.name,
-            createdAt: new Date(event.createdAt),
-        }
-        : eventDefaultValues;
     const router = useRouter();
 
     //const { startUpload } = useUploadThing('mediaPost')
@@ -61,7 +47,6 @@ const YoutubeForm = ({ userId, type, event, eventId }: YoutubeFormProps) => {
 
     const form = useForm<z.infer<typeof videoFormSchema>>({
         resolver: zodResolver(videoFormSchema),
-        defaultValues: initialValues
     })
 
     const onSubmit = async (values: z.infer<typeof videoFormSchema>) => {

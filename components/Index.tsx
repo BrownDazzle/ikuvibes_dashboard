@@ -27,6 +27,8 @@ interface IndexComponentProps {
 
 const IndexComponent: React.FC<IndexComponentProps> = ({ searchParams, orders }) => {
     const { setCurrentColor, setCurrentMode, currentMode, activeMenu, currentColor, themeSettings, setThemeSettings } = useStateContext();
+    const analyticsData = [30, 50, 20, 80, 45];
+    const analyticsLabels = ['Song 1', 'Song 2', 'Song 3', 'Song 4', 'Song 5'];
 
     useEffect(() => {
         const currentThemeColor = localStorage.getItem('colorMode');
@@ -53,11 +55,11 @@ const IndexComponent: React.FC<IndexComponentProps> = ({ searchParams, orders })
 
                 {activeMenu ? (
                     <div className="w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white ">
-                        <Sidebar searchParams={searchParams} />
+                        <Sidebar />
                     </div>
                 ) : (
                     <div className="w-0 dark:bg-secondary-dark-bg">
-                        <Sidebar searchParams={searchParams} />
+                        <Sidebar />
                     </div>
                 )}
                 <div
@@ -75,9 +77,9 @@ const IndexComponent: React.FC<IndexComponentProps> = ({ searchParams, orders })
 
                         {(
                             <>
-                                {searchParams?.path === 'home' && <Ecommerce />}
-                                {searchParams.path === 'Music Upload' && <MusicForm />}
-                                {searchParams.path === 'Video Upload' && <VideoUploadForm />}
+                                <Ecommerce />
+                                <MusicForm />
+                                <VideoUploadForm />
                             </>
                         )}
                         <Footer />
