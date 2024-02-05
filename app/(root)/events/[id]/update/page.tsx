@@ -1,4 +1,4 @@
-import EventForm from "@/components/shared/EventForm"
+import MusicForm from "@/components/shared/MusicUploader"
 import { getEventById } from "@/lib/actions/event.actions"
 import { useSession } from "next-auth/react"
 
@@ -20,12 +20,13 @@ const UpdateEvent = async ({ params: { id } }: UpdateEventProps) => {
       </section>
 
       <div className="wrapper my-8">
-        <EventForm
+        <MusicForm />
+        {/*<EventForm
           type="Update"
           event={event}
           eventId={event._id}
           userId={userId}
-        />
+  />*/}
       </div>
     </>
   )

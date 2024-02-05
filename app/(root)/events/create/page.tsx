@@ -1,4 +1,4 @@
-import EventForm from "@/components/shared/EventForm"
+import MusicForm from "@/components/shared/MusicUploader"
 
 
 const CreateEvent = () => {
@@ -12,7 +12,8 @@ const CreateEvent = () => {
       </section>
 
       <div className="wrapper my-8">
-        <EventForm userId={''} type="Create" />
+        <MusicForm />
+        {/*<EventForm userId={''} type="Create" />*/}
       </div>
     </>
   )
