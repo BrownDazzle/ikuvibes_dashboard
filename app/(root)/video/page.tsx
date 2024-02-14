@@ -114,6 +114,18 @@ const Video = () => {
                     />
                     <FormField
                         control={form.control}
+                        name="artist"
+                        render={({ field }) => (
+                            <FormItem className="w-full">
+                                <FormControl>
+                                    <Input placeholder="Artis name" {...field} className="input-field" />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
                         name="categoryId"
                         render={({ field }) => (
                             <FormItem className="w-full">
