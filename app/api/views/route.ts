@@ -26,12 +26,21 @@ export async function GET(
 
         await connectToDatabase();
 
-        // Increment the views field in the database
-        const data = await Event.findByIdAndUpdate(new ObjectId(params.id), { $inc: { views: 1 } });
+        const existingPageView = await Event.findOne({ _id: params.id });
 
-        return NextResponse.json(data, {
-            headers: corsHeaders
-        });
+        if (existingPageView) {
+            // If page view record exists, increment count
+            existingPageView.views += 1;
+            await existingPageView.save();
+            return existingPageView.views;
+        } else {
+            // If no record exists, create a new one
+            const newPageView = await Event.findByIdAndUpdate(new ObjectId(params.id), { $inc: { views: 1 } });
+            await newPageView.save();
+            return NextResponse.json(newPageView.count, {
+                headers: corsHeaders
+            });
+        }
     } catch (error) {
         console.log('[ALL_GET]', error);
         return new NextResponse("Internal error", { status: 500 });
