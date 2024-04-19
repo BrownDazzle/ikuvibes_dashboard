@@ -416,7 +416,7 @@ export const links = [
         links: [
             {
                 name: 'home',
-                path: "/home",
+                path: "home",
                 icon: <FiShoppingBag />,
             },
         ],
@@ -427,12 +427,12 @@ export const links = [
         links: [
             {
                 name: 'Music',
-                path: "/music",
+                path: "music",
                 icon: <AiOutlineSound />,
             },
             {
                 name: 'Videos',
-                path: "/videos",
+                path: "videos",
                 icon: <RiVideoLine />,
             },
         ],
@@ -442,27 +442,28 @@ export const links = [
         links: [
             {
                 name: 'Analytics',
-                path: "/analytics",
+                path: "analytics",
                 icon: <AiOutlineStock />,
             },
         ],
     },
     {
-        title: 'Charts',
+        title: 'Uploads',
         links: [
             {
                 name: 'Music Upload',
-                path: "/music_upload",
+                path: "music_upload",
                 icon: <FiUpload />,
             },
             {
-                name: 'Video Upload',
-                path: "/video_upload",
+                name: 'Album Upload',
+                path: "album_upload",
                 icon: <RiVideoUploadLine />,
             },
             {
-                name: 'Sign Out',
-                icon: <RiStockLine />,
+                name: 'Video Upload',
+                path: "video_upload",
+                icon: <RiVideoUploadLine />,
             },
         ],
     },

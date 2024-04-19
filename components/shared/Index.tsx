@@ -1,27 +1,33 @@
 "use client"
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FiSettings } from 'react-icons/fi';
 import { useRouter } from 'next/router';
-import { useStateContext } from '../contexts/ContextProvider';
-import Sidebar from '../components/shared/Sidebar';
-import Navbar from '../components/shared/Navbar';
-import Ecommerce from '../components/shared/Ecommerce';
+import { useStateContext } from '@/contexts/ContextProvider';
+import Sidebar from '@/components/shared/Sidebar';
+import Navbar from '@/components/shared/Navbar';
+import Ecommerce from '@/components/shared/Ecommerce';
 
 //import { withRouter, NextRouter } from 'next/router';
-import { useParams } from 'next/navigation';
-import Footer from './shared/Footer';
+import { useParams, usePathname, useSearchParams } from 'next/navigation';
+import Footer from '../shared/Footer';
+import VideoUploadForm from '../shared/YoutubeUploader';
+import MusicForm from '../shared/MusicUploader';
 import { SearchParamProps } from '@/types/index';
-import CategoryFilter from './shared/CategoryFilter';
-import VideoUploadForm from './shared/YoutubeUploader';
-import MusicForm from './shared/MusicUploader';
+import AlbumForm from './upload/album';
+import VideoForm from './upload/video';
+import SongForm from './upload/song';
 
+interface IndexProps {
+    query: string
+}
 
-const IndexComponent = () => {
+const IndexComponent = ({ query }: IndexProps) => {
+    const queryString = (query as string) || '';
+    const pathname = usePathname();
     const { setCurrentColor, setCurrentMode, currentMode, activeMenu, currentColor, themeSettings, setThemeSettings } = useStateContext();
-    const analyticsData = [30, 50, 20, 80, 45];
-    const analyticsLabels = ['Song 1', 'Song 2', 'Song 3', 'Song 4', 'Song 5'];
 
+    const [path, setPath] = useState<string | null>("/")
     useEffect(() => {
         const currentThemeColor = localStorage.getItem('colorMode');
         const currentThemeMode = localStorage.getItem('themeMode');
@@ -47,11 +53,11 @@ const IndexComponent = () => {
 
                 {activeMenu ? (
                     <div className="w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white ">
-                        <Sidebar />
+                        <Sidebar setPath={setPath} />
                     </div>
                 ) : (
                     <div className="w-0 dark:bg-secondary-dark-bg">
-                        <Sidebar />
+                        <Sidebar setPath={setPath} />
                     </div>
                 )}
                 <div
@@ -65,15 +71,10 @@ const IndexComponent = () => {
                         <Navbar />
                     </div>
                     <div>
-                        {/*{themeSettings && <ThemeSettings />}*/}
-
-                        {(
-                            <>
-                                <Ecommerce />
-                                <MusicForm />
-                                <VideoUploadForm />
-                            </>
-                        )}
+                        {path === "home" && (<Ecommerce />)}
+                        {path === "music_upload" && (<SongForm path={path} />)}
+                        {path === "video_upload" && (<VideoForm path={path} />)}
+                        {path === "album_upload" && (<AlbumForm path={path} />)}
                         <Footer />
                     </div>
                 </div>

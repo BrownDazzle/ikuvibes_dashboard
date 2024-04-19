@@ -29,7 +29,7 @@ export const ourFileRouter = {
       return { uploadedBy: metadata.userId };
     }),
 
-  audioUploader: f({ audio: { maxFileSize: "32MB" } })    // Set permissions and file types for this FileRoute
+  audioUploader: f({ audio: { maxFileSize: "256MB", maxFileCount: 20 } })    // Set permissions and file types for this FileRoute
 
     .middleware(async ({ req }) => {
       // This code runs on your server before upload
@@ -60,7 +60,7 @@ export const ourFileRouter = {
       if (!user) throw new Error('Unauthorized');
 
       // Whatever is returned here is accessible in onUploadComplete as `metadata`
-      return { userId: user.id, fileType: 'audio' };
+      return { userId: user.id, fileType: 'video' };
     })
     .onUploadComplete(async ({ metadata, file }) => {
       // This code RUNS ON YOUR SERVER after upload

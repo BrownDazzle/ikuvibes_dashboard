@@ -6,6 +6,7 @@ import './globals.css';
 import { ContextProvider } from '@/contexts/ContextProvider';
 import Provider from '@/lib/providers/session-provider';
 import { Session } from 'next-auth';
+import ReduxProvider from '@/lib/providers/redux-provider';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -33,7 +34,11 @@ const Layout: React.FC<LayoutProps> = ({ children, session }) => {
       </head>
       <body className={poppins.variable}>
         <Provider session={session as never}>
-          <ContextProvider>{children}</ContextProvider>
+          <ReduxProvider>
+            <ContextProvider>
+              {children}
+            </ContextProvider>
+          </ReduxProvider>
         </Provider>
       </body>
     </html>

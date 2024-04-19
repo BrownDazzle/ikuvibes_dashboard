@@ -9,16 +9,18 @@ export interface IEvent extends Document {
   createdAt: Date;
   imageUrl: string;
   audioUrl?: string,
+  albumFiles?: [
+    {
+      i: number,
+      name: string,
+      url: string
+    }
+  ],
   videoUrl?: string,
   views: number;
-  likes: number;
+  type: string;
   isFree: boolean;
-  socialUrl?: {
-    facebook?: string;
-    youtube?: string;
-    instagram?: string;
-  };
-  category: { _id: string, name: string, type: string }
+  category?: string
 }
 
 const EventSchema = new Schema({
@@ -29,11 +31,18 @@ const EventSchema = new Schema({
   createdAt: { type: Date, default: Date.now },
   imageUrl: { type: String, required: true },
   audioUrl: { type: String },
+  albumFiles: [
+    {
+      i: { type: Number },
+      name: { type: String },
+      url: { type: String }
+    }
+  ],
   videoUrl: { type: String },
   views: { type: Number, default: 0 },
-  likes: { type: Number, default: 0 },
+  type: { type: String },
   isFree: { type: Boolean, default: false },
-  category: { type: Schema.Types.ObjectId, ref: 'Category' },
+  category: { type: String },
 })
 
 const Event = models.Event || model('Event', EventSchema);

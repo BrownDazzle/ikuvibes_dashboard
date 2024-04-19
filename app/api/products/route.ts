@@ -42,10 +42,12 @@ export async function GET(
     const { searchParams } = new URL(req.url)
 
     const query = searchParams.get('query') || undefined;
-    const category = searchParams.get('category') || undefined;
+    const type = searchParams.get('type') || undefined;
     const genre = searchParams.get('genre') || undefined;
     const page = searchParams.get('page');
     const limitString = searchParams.get('limit') || null;
+
+    console.log("YEET", type)
 
     // Convert limitString to a number or use a default value if it's null or not a valid number
     const limit = limitString ? parseInt(limitString, 10) : 1;
@@ -53,11 +55,13 @@ export async function GET(
     await connectToDatabase();
 
     const titleCondition = query ? { title: { $regex: query, $options: 'i' } } : {};
-    const categoryCondition = category ? { category: await getCategoryByName(category) } : {};
+
+    const typeCondition = type ? { type: { $regex: type, $options: 'i' } } : {};
+
     const genreCondition = genre ? { genre: await getGenreByName(genre) } : {};
 
     const conditions = {
-      $and: [titleCondition, genreCondition, categoryCondition],
+      $and: [titleCondition, genreCondition, typeCondition],
     };
 
     const skipAmount = (Number(page) - 1) * limit;

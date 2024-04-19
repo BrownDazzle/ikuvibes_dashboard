@@ -32,7 +32,6 @@ const populateEvent = (query: any) => {
   return query
     //.populate({ path: 'organizer', model: User, select: '_id firstName lastName' })
     .populate([
-      { path: 'category', model: Category, select: '_id name' },
       { path: 'genre', model: Genre, select: '_id name' }
       // Add more populate options if needed
     ])
@@ -46,7 +45,7 @@ export async function createEvent({ event, path }: CreateEventParams) {
     /*const organizer = await User.findById(userId)
     if (!organizer) throw new Error('Organizer not found')*/
 
-    const newEvent = await Event.create({ ...event, category: event.categoryId, genre: event.genre })
+    const newEvent = await Event.create({ ...event, genre: event.genre })
     revalidatePath(path)
 
     return JSON.parse(JSON.stringify(newEvent))
@@ -105,7 +104,7 @@ export async function updateEvent({ userId, event, path }: UpdateEventParams) {
 
     const updatedEvent = await Event.findByIdAndUpdate(
       event._id,
-      { ...event, category: event.categoryId },
+      { ...event, category: event.category },
       { new: true }
     )
     revalidatePath(path)
@@ -134,11 +133,11 @@ export async function getAllEvents({ query, limit = 6, page, category, genre }: 
     await connectToDatabase();
 
     const titleCondition = query ? { title: { $regex: query, $options: 'i' } } : {};
-    const categoryCondition = category ? { category: await getCategoryByName(category) } : {};
+    //const categoryCondition = category ? { category: await getCategoryByName(category) } : {};
     const genreCondition = genre ? { genre: await getGenreByName(genre) } : {};
 
     const conditions = {
-      $and: [titleCondition, genreCondition, categoryCondition],
+      $and: [titleCondition, genreCondition],
     };
 
     const skipAmount = (Number(page) - 1) * limit;
@@ -184,7 +183,7 @@ export async function getEventsByUser({ userId, limit = 6, page }: GetEventsByUs
 
 // GET RELATED EVENTS: EVENTS WITH SAME CATEGORY
 export async function getRelatedEventsByCategory({
-  categoryId,
+  category,
   eventId,
   limit = 3,
   page = 1,
@@ -193,7 +192,7 @@ export async function getRelatedEventsByCategory({
     await connectToDatabase()
 
     const skipAmount = (Number(page) - 1) * limit
-    const conditions = { $and: [{ category: categoryId }, { _id: { $ne: eventId } }] }
+    const conditions = { $and: [{ category: category }, { _id: { $ne: eventId } }] }
 
     const eventsQuery = Event.find(conditions)
       .sort({ createdAt: 'desc' })

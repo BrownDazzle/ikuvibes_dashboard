@@ -12,9 +12,11 @@ import MobileNav from './MobileNav';
 import { useRouter } from 'next/navigation';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import Button from '../ui/sign-button';
+import { HiCloudDownload, HiCloudUpload } from "react-icons/hi";
 import Avatar from '../ui/Avatar';
 import { SafeUser } from '@/types';
 import MenuItem from '../ui/MenuItem';
+import CourseButton from '../ui/button-copy';
 
 interface NavButtonProps {
   title: string;
@@ -91,9 +93,18 @@ const Navbar: React.FC = () => {
             />
           </>
         ) : (
-          <div className="flex items-center" onClick={toggleOpen}>
-            <Avatar user={session?.user as SafeUser} />
-            <MdKeyboardArrowDown className="text-gray-400 text-14" />
+          <div className='flex items-center gap-3'>
+            <CourseButton onClick={() => router.push("/upload")} className="flex rounded-full bg-white transition 
+            cursor-pointer px-2 py-1">
+              <div className='border-none outline-none active:scale-110 transition-all duration-300 relative'>
+                <HiCloudUpload className={`w-6 h-6 text-orange-700 transition-all duration-300`} />
+              </div>
+            </CourseButton>
+
+            <div className="flex items-center" onClick={toggleOpen}>
+              <Avatar user={session?.user as SafeUser} />
+              <MdKeyboardArrowDown className="text-gray-400 text-14" />
+            </div>
           </div>
         )}
         <MobileNav />

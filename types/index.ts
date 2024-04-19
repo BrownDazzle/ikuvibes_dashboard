@@ -49,7 +49,7 @@ export type YoutubeUploadParams = {
     genre: string
     imageUrl: string
     videoUrl: CustomFile
-    categoryId: string
+    category: string
   }
   path: string
 }
@@ -63,7 +63,7 @@ export type CreateEventParams = {
     imageUrl: string
     audioUrl?: string
     videoUrl?: string
-    categoryId: string
+    category: string
   }
   path: string
 }
@@ -76,7 +76,7 @@ export type CreateVideoParams = {
     genre: string
     imageUrl: string
     videoUrl: string
-    categoryId: string
+    category: string
   }
   path: string
 }
@@ -99,7 +99,7 @@ export type UpdateEventParams = {
     videoUrl?: string
     description: string
     genre: string
-    categoryId: string
+    category: string
     views?: string
     likes?: string
   }
@@ -126,7 +126,7 @@ export type GetEventsByUserParams = {
 }
 
 export type GetRelatedEventsByCategoryParams = {
-  categoryId: string
+  category: string
   eventId: string
   limit?: number
   page: number | string
@@ -144,12 +144,7 @@ export type Event = {
   views: string;
   likes: string;
   isFree: boolean;
-  socialUrl?: {
-    facebook?: string;
-    youtube?: string;
-    instagram?: string;
-  };
-  category: { _id: string, name: string, type: string }
+  category: string
 }
 
 // ====== CATEGORY PARAMS

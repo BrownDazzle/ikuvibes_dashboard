@@ -1,6 +1,6 @@
 "use client"
 
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 
 import { SiShopware } from 'react-icons/si';
 import { MdOutlineCancel } from 'react-icons/md';
@@ -8,14 +8,16 @@ import { MdOutlineCancel } from 'react-icons/md';
 import { links } from '../../constants/data';
 import { useStateContext } from '../../contexts/ContextProvider';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { SearchParamProps } from '@/types/index';
 import { formUrlQuery, removeKeysFromQuery } from "@/lib/utils";
 
-
-const Sidebar = () => {
-
-    const param = useSearchParams();
+interface BarProps {
+    setPath: Dispatch<SetStateAction<string | null>>;
+}
+const Sidebar = ({ setPath }: BarProps) => {
+    const searchParams = useSearchParams();
+    const router = useRouter();
 
     const { currentColor, activeMenu, setActiveMenu, screenSize } = useStateContext();
 
@@ -24,6 +26,26 @@ const Sidebar = () => {
             setActiveMenu(false);
         }
     };
+
+    const onSelectCategory = (path: string) => {
+        let newUrl = '';
+
+        if (path) {
+            newUrl = formUrlQuery({
+                params: searchParams?.toString(),
+                key: 'path',
+                value: path
+            })
+            setPath(path)
+        } else {
+            newUrl = removeKeysFromQuery({
+                params: searchParams?.toString(),
+                keysToRemove: ['path']
+            })
+        }
+
+        router.push(newUrl, { scroll: false });
+    }
 
     const activeLink = 'flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg text-white text-md m-2';
     const normalLink = 'flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg text-md text-gray-700 dark:text-gray-200 dark:hover:text-black hover:bg-light-gray m-2';
@@ -45,23 +67,23 @@ const Sidebar = () => {
                             <MdOutlineCancel />
                         </button>
                     </div>
-                    <div className="mt-10">
+                    <div className="mt-10 cursor-pointer">
                         {links.map((item: any) => (
                             <div key={item.title}>
                                 <p className="text-gray-400 dark:text-gray-400 m-3 mt-4 uppercase">
                                     {item.title}
                                 </p>
                                 {item.links.map((link: any) => (
-                                    <Link
-                                        href={link.path}
+                                    <div
+
                                         key={link.name}
-                                        onClick={() => { handleCloseSideBar(); }}
+                                        onClick={() => onSelectCategory(link.path)}
                                         style={{ backgroundColor: link.path === `${link.name}` ? currentColor : '' }}
                                         className={link.path === `${link.name}` ? activeLink : normalLink}
                                     >
                                         {link.icon}
                                         <span className="capitalize">{link.name}</span>
-                                    </Link>
+                                    </div>
                                 ))}
                             </div>
                         ))}
